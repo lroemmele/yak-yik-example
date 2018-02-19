@@ -10,4 +10,8 @@ router.get('/testcreatezone', function(req, res, next) {
   res.render('testcreatezone', null);
 });
 
+router.get('/testcreatecomment', (req, res, next) => {
+     res.render('testcreatecomment', null);
+});
+
 module.exports = router;

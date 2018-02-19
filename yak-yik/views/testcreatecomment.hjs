@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <title></title>
+     </head>
+     <body>
+          <h1>Test Create Comments</h1>
+
+          <form action="/api/comment" method="post">
+               <input type="text" name="username" placeholder="Username" /><br/>
+               <input type="text" name="body" placeholder="Body" /><br/>
+               <input type="submit" value="Creat Comment" />
+          </form>
+
+     </body>
+</html>
