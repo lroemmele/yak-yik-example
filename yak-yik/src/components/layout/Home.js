@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Zones from './Zones';
-import Comments from './Comments';
+import Zones from '../containers/Zones';
+import Comments from '../containers/Comments';
 
 class Home extends Component {
      render(){
@@ -10,7 +10,7 @@ class Home extends Component {
                          <div className="col-md-4">
                               <Zones/>
                          </div>
-                         <div className="col-md-4">
+                         <div className="col-md-8">
                               <Comments/>
                          </div>
                     </div>

@@ -11,7 +11,7 @@ class Zones extends Component {
                     <h2 style={style.header}>
                          <a style={style.title} href="#">{this.props.zone.name}</a>
                     </h2>
-                    <span className="detail" >{this.props.zone.zipCode}</span><br/>
+                    <span className="detail" >{this.props.zone.zipCodes}</span><br/>
                     <span className="detail" >{this.props.zone.numComments}</span>
                </div>
           )

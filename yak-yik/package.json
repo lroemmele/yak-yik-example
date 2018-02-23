@@ -17,6 +17,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "serve-favicon": "~2.4.5",
+    "superagent": "^3.8.2",
     "webpack": "^3.11.0"
   },
   "devDependencies": {
