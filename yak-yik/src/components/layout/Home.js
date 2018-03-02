@@ -7,7 +7,7 @@ class Home extends Component {
           return(
                <div className="container">
                     <div className="row">
-                         <div className="col-md-4">
+                         <div className="col-md-4"><br/>
                               <Zones/>
                          </div>
                          <div className="col-md-8">
