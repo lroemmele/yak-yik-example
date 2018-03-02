@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Zone from '../presentation/Zone';
-import superagent from 'superagent';
+import { APIManager } from '../../utils';
+
 
 class Zones extends Component {
      constructor(props){
@@ -9,7 +10,7 @@ class Zones extends Component {
           this.state = {
                zone: {
                     name: '',
-                    zipeCodes: ''
+                    zipCodes: ''
                },
                list: []
           }
@@ -17,30 +18,23 @@ class Zones extends Component {
 
 
      componentDidMount(){
-          superagent
-          .get('/api/zone')
-          .query(null)
-          .set('Accept', 'application/json')
-          .end((err, response)=>{
-
+          APIManager.get('/api/zone', null, (err, response)=>{
                if (err){
-                    alert('ERROR: ' +err);
+                    alert('ERROR: ' +err.message);
                     return;
                }
 
-               //console.log(JSON.stringify(response.body));
-
-               let results = response.body.results;
-
+               //console.log(response);
+               let results = response.results;
                this.setState({
                     list: results
                })
-
-          })
+               console.log(this.state.list);
+          });
      }
 
      updateZone(event){
-          //console.log("updatezone: " +event.target.id+ "===" +event.target.value);
+
           let updatedZone = Object.assign({}, this.state.zone);
           updatedZone[event.target.id] = event.target.value;
 
@@ -50,21 +44,23 @@ class Zones extends Component {
      }
 
      addZone(event){
-          let updatedList = Object.assign([], this.state.list);
-          updatedList.push(this.state.zone);
+          let updatedZone = Object.assign({}, this.state.zone);
+          updatedZone['zipCodes'] = updatedZone.zipCodes.split(',');
 
-          this.setState({
-               list: updatedList
-          })
+          // APIManager.post('/api/zone', updatedZone, (err, response)=>{
+          //      if (err){
+          //           alert('ERROR: ' +err.message);
+          //           return;
+          //      }
+          //      console.log('Zone CREATED: ' +JSON.stringify(response));
+          // })
      }
 
      render(){
 
           const listItems = this.state.list.map((zone, i) => {
                return (
-                    <li key={i}>
-                         <Zone zone={zone}/>
-                    </li>
+                    <li key={i}> <Zone zone={zone}/> </li>
                )
           });
 

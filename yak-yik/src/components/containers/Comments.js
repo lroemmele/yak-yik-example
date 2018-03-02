@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Comment from '../presentation/Comment';
-import superagent from 'superagent';
 import styles from './styles';
+import { APIManager } from '../../utils';
 
 
 class Comments extends Component {
@@ -18,27 +18,18 @@ class Comments extends Component {
           }
      }
 
-     componentDidMount(){
-          superagent
-          .get('/api/comment')
-          .query(null)
-          .set('Accept', 'application/json')
-          .end((err, response)=>{
-
-               if(err){
-                    alert('ERROR: '+err);
-                    return;
-               }
-
-
-               console.log(JSON.stringify(response.body));
-               let results = response.body.results;
-               this.setState({
-                    list: results
-               })
-          })
-          //console.log(this.state.list);
-     }
+     // componentDidMount(){
+     //      APIManager.get('/api/comments/', (err, response)=>{
+     //           if(err){
+     //                alert('ERROR:' +err.message);
+     //                return;
+     //           }
+     //           let results = response.body.results;
+     //           this.setState({
+     //                list: results
+     //           })
+     //      })
+     // }
 
 
      submitComment(event){
@@ -56,7 +47,7 @@ class Comments extends Component {
           let updatedComment = Object.assign({}, this.state.comment);
           updatedComment[event.target.id] = event.target.value;
 
-          console.log(JSON.stringify(this.state.comment));
+
           this.setState({
                comment: updatedComment
           })
@@ -64,10 +55,7 @@ class Comments extends Component {
 
 
      render(){
-
-
           const commentList = this.state.list.map((comment, i) => {
-
                return (
                     <li key={i}> <Comment currentComment={comment}/></li>
                )
@@ -85,7 +73,6 @@ class Comments extends Component {
                          <input id="body" onChange={this.updateComment.bind(this)} className="form-control" type="text" placeholder="Comment"/><br/>
                          <button onClick={this.submitComment.bind(this)} className="btn btn-info">Submit Comment</button><br/>
                     </div>
-
                </div>
 
           )
