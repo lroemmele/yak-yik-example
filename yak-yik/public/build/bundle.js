@@ -18393,6 +18393,7 @@ var Home = function (_Component) {
                          _react2.default.createElement(
                               'div',
                               { className: 'col-md-4' },
+                              _react2.default.createElement('br', null),
                               _react2.default.createElement(_Zones2.default, null)
                          ),
                          _react2.default.createElement(
@@ -18470,12 +18471,10 @@ var Zones = function (_Component) {
                          return;
                     }
 
-                    //console.log(response);
                     var results = response.results;
                     _this2.setState({
                          list: results
                     });
-                    console.log(_this2.state.list);
                });
           }
      }, {
@@ -18492,16 +18491,24 @@ var Zones = function (_Component) {
      }, {
           key: 'addZone',
           value: function addZone(event) {
+               var _this3 = this;
+
                var updatedZone = Object.assign({}, this.state.zone);
                updatedZone['zipCodes'] = updatedZone.zipCodes.split(',');
 
-               // APIManager.post('/api/zone', updatedZone, (err, response)=>{
-               //      if (err){
-               //           alert('ERROR: ' +err.message);
-               //           return;
-               //      }
-               //      console.log('Zone CREATED: ' +JSON.stringify(response));
-               // })
+               _utils.APIManager.post('/api/zone', updatedZone, function (err, response) {
+                    if (err) {
+                         alert('ERROR: ' + err.message);
+                         return;
+                    }
+                    console.log('Zone CREATED: ' + JSON.stringify(response));
+                    var updatedList = Object.assign([], _this3.state.list);
+                    updatedList.push(response.result);
+                    //console.log(updatedList);
+                    _this3.setState({
+                         list: updatedList
+                    });
+               });
           }
      }, {
           key: 'render',
@@ -18527,7 +18534,7 @@ var Zones = function (_Component) {
                     ),
                     _react2.default.createElement('input', { id: 'name', onChange: this.updateZone.bind(this), type: 'text', placeholder: 'Name', className: 'form-control' }),
                     _react2.default.createElement('br', null),
-                    _react2.default.createElement('input', { id: 'zipCode', onChange: this.updateZone.bind(this), type: 'text', placeholder: 'Zip Code', className: 'form-control' }),
+                    _react2.default.createElement('input', { id: 'zipCodes', onChange: this.updateZone.bind(this), type: 'text', placeholder: 'Zip Code', className: 'form-control' }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
                          'button',
@@ -18703,15 +18710,17 @@ exports.default = {
      post: function post(url, body, callback) {
           _superagent2.default.post(url).send(body).set('Accept', 'application/json').end(function (err, response) {
                if (err) {
+                    console.log("error");
                     callback(err, null);
                     return;
                }
-               var confirmation = response.body.confirmation;
+               var confirmation = response.body.confimation;
                if (confirmation != 'success') {
                     callback({ message: response.body.message }, null);
                     return;
                }
-               callback(null, response.body.message);
+               console.log(response.body);
+               callback(null, response.body);
           });
      },
 

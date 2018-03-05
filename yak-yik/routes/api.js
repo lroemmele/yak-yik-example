@@ -64,7 +64,6 @@ router.get('/:resource/:id', (req, res, next) =>{
 });
 
 router.post('/:resource', (req, res, next) => {
-
      var resource = req.params.resource;
      var controller = controllers[resource];
 
@@ -75,7 +74,7 @@ router.post('/:resource', (req, res, next) => {
           });
           return;
      }
-
+     console.log(req.body);
           controller.create(req.body, (err, result) => {
                if (err){
                     res.json({

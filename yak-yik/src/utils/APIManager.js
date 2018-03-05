@@ -32,15 +32,17 @@ export default{
           .set('Accept', 'application/json')
           .end((err, response)=>{
                if(err){
+                    console.log("error");
                     callback(err,null);
                     return;
                }
-               const confirmation = response.body.confirmation;
+               const confirmation = response.body.confimation;
                if (confirmation != 'success'){
                     callback({message: response.body.message}, null);
                     return;
                }
-               callback(null, response.body.message);
+               console.log(response.body);
+               callback(null, response.body);
           })
      },
 
