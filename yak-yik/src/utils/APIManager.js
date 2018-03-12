@@ -14,7 +14,6 @@ export default{
                     alert('ERROR: '+err);
                     return;
                }
-               //console.log(response);
 
                const confirmation = response.body.confirmation;
                if (confirmation != 'success'){
