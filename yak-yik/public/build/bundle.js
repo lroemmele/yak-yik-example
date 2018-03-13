@@ -18495,15 +18495,24 @@ var Zones = function (_Component) {
                });
           }
      }, {
+          key: 'selectZone',
+          value: function selectZone(index) {
+               this.setState({
+                    selected: index
+               });
+          }
+     }, {
           key: 'render',
           value: function render() {
+               var _this4 = this;
 
                var listItems = this.state.list.map(function (zone, i) {
+                    var selected = i == _this4.state.selected;
                     return _react2.default.createElement(
                          'li',
                          { key: i },
                          ' ',
-                         _react2.default.createElement(_presentation.Zone, { isSelected: false, zone: zone }),
+                         _react2.default.createElement(_presentation.Zone, { index: i, select: _this4.selectZone.bind(_this4), isSelected: selected, zone: zone }),
                          ' '
                     );
                });
@@ -18565,13 +18574,20 @@ var Zones = function (_Component) {
      }
 
      _createClass(Zones, [{
+          key: 'onSelectTitle',
+          value: function onSelectTitle(event) {
+               event.preventDefault();
+               this.props.select(this.props.index);
+          }
+     }, {
           key: 'render',
           value: function render() {
+
                var style = _styles2.default.zone;
                var zipCode = this.props.zone.zipCodes[0];
                var title = this.props.isSelected ? _react2.default.createElement(
                     'a',
-                    { style: zoneStyle.title, href: '#' },
+                    { style: _styles2.default.zone.title, href: '#' },
                     this.props.zone.name
                ) : _react2.default.createElement(
                     'a',
@@ -18584,7 +18600,7 @@ var Zones = function (_Component) {
                     { style: style.container },
                     _react2.default.createElement(
                          'h2',
-                         { style: style.header },
+                         { onClick: this.onSelectTitle.bind(this), style: style.header },
                          title
                     ),
                     _react2.default.createElement(
